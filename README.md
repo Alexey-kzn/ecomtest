@@ -1,2 +1,2 @@
-# econtest
+# ecomtest
 testing
