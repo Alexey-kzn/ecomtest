@@ -1074,21 +1074,21 @@
 		{
 			"listen": "prerequest",
 			"script": {
+				"id": "5ac39741-5bab-4369-9319-2395f2828e45",
 				"type": "text/javascript",
 				"exec": [
 					""
-				],
-				"id": "362c9069-a109-4ba6-9123-6823293b6a46"
+				]
 			}
 		},
 		{
 			"listen": "test",
 			"script": {
+				"id": "82be3a6a-7b8a-46b7-89e8-4726de992bf8",
 				"type": "text/javascript",
 				"exec": [
 					""
-				],
-				"id": "f149f126-2362-4e85-9ace-ca3092aa6f03"
+				]
 			}
 		}
 	],
@@ -1096,12 +1096,14 @@
 		{
 			"key": "baseUrl",
 			"value": "https://petstore.swagger.io/v2",
-			"type": "string"
+			"type": "string",
+			"disabled": true
 		},
 		{
 			"key": "petId",
 			"value": "9876547",
-			"type": "string"
+			"type": "string",
+			"disabled": true
 		}
 	]
 }
