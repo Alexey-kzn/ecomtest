@@ -11,14 +11,13 @@
 				{
 					"listen": "test",
 					"script": {
+						"id": "2a269a67-e068-45c4-a101-736cf0b3bfd9",
 						"exec": [
 							"pm.test(\"Наш ID не найден/Status code is 404\", function () {\r",
 							"    pm.response.to.have.status(404);\r",
-							"});\r",
-							""
+							"});"
 						],
-						"type": "text/javascript",
-						"id": "2a269a67-e068-45c4-a101-736cf0b3bfd9"
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -1074,7 +1073,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "5ac39741-5bab-4369-9319-2395f2828e45",
+				"id": "d71f5627-3706-431b-82bc-5fa38436cc26",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -1084,26 +1083,12 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "82be3a6a-7b8a-46b7-89e8-4726de992bf8",
+				"id": "7394d3c8-9f37-4bb5-9212-0eb2da0c4c5f",
 				"type": "text/javascript",
 				"exec": [
 					""
 				]
 			}
-		}
-	],
-	"variable": [
-		{
-			"key": "baseUrl",
-			"value": "https://petstore.swagger.io/v2",
-			"type": "string",
-			"disabled": true
-		},
-		{
-			"key": "petId",
-			"value": "9876547",
-			"type": "string",
-			"disabled": true
 		}
 	]
 }
