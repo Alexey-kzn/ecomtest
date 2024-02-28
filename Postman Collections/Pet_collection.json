@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "Find pet by ID (проверка, что наш ID не существует_ПРОВЕРКА_СИНХРОНИЗАЦИИ_GITHUB)",
+			"name": "Find pet by ID (проверка, что наш ID не существует)",
 			"event": [
 				{
 					"listen": "test",
