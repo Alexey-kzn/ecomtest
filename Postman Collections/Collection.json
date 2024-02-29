@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "Get_Token (ПРОВЕРКА)",
+			"name": "Get_Token",
 			"item": [
 				{
 					"name": "Token",
