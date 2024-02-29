@@ -1392,7 +1392,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"goods_id\": {{goods_id}},\r\n  \"companymarketplace_id\": {{ozon_companymarketplace_id}}, // Кабинет поставщика\r\n  \"use_goods_media\": false,\r\n  \"card\": {\r\n    \"category_id\": 93950\r\n//    \"category_id\": {{ozon_categories_id}} // Ozonproduct\r\n  }\r\n}"
+							"raw": "{\r\n  \"goods_id\": {{goods_id}},\r\n  \"companymarketplace_id\": {{ozon_companymarketplace_id}}, // Кабинет поставщика\r\n  \"use_goods_media\": false,\r\n  \"card\": {\r\n//    \"category_id\": 93950\r\n    \"category_id\": {{ozon_categories_id}} // Ozonproduct\r\n  }\r\n}"
 						},
 						"url": "{{url}}/pim/products/ozon/product"
 					},
