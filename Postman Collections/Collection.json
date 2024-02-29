@@ -713,7 +713,7 @@
 								{
 									"key": "file",
 									"type": "file",
-									"src": "Testovyi-tovar-2.jpg"
+									"src": "postman-cloud:///1eed6e87-bef4-4860-bc98-ffdb9197effb"
 								}
 							]
 						},
@@ -1092,6 +1092,10 @@
 								{
 									"key": "file",
 									"type": "file",
+									"fileNotInWorkingDirectoryWarning": "This file isn't in your working directory. Teammates you share this request with won't be able to use this file. To make collaboration easier you can setup your working directory in Settings.",
+									"filesNotInWorkingDirectory": [
+										"/C:/Users/Leha7777/Postman/WB.jpeg"
+									],
 									"src": "WB.jpeg"
 								}
 							]
