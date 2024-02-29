@@ -712,8 +712,8 @@
 							"formdata": [
 								{
 									"key": "file",
-									"type": "file",
-									"src": "Testovyi-tovar-2.jpg"
+									"type": "text",
+									"value": "{{media_goods}}"
 								}
 							]
 						},
