@@ -164,9 +164,15 @@
 			"value": "",
 			"type": "any",
 			"enabled": true
+		},
+		{
+			"key": "media_goods",
+			"value": "",
+			"type": "default",
+			"enabled": true
 		}
 	],
 	"_postman_variable_scope": "environment",
-	"_postman_exported_at": "2024-02-29T08:22:40.289Z",
-	"_postman_exported_using": "Postman/10.23.5"
+	"_postman_exported_at": "2024-02-29T14:52:36.114Z",
+	"_postman_exported_using": "Postman/10.23.8"
 }
