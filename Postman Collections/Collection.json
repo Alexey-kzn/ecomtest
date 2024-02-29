@@ -1,0 +1,2448 @@
+{
+	"info": {
+		"_postman_id": "b6c04063-bf3d-4241-8805-4f80efd2be79",
+		"name": "EcomTest_Postman_GitHub",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get_Token",
+			"item": [
+				{
+					"name": "Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c6fc3aab-b08e-4098-a620-8022de75fa9a",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"varBearerToken\", jsonData.access_token);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "dd9f05c9-5a6b-4b42-abcd-cd8b0296b1a4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"login\": \"{{login}}\",\r\n  \"password\": \"{{password}}\",\r\n  \"fingerprint\": \"string\",\r\n  \"remember_me\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/auth/login"
+					},
+					"response": []
+				}
+			],
+			"id": "5eaa50c7-e7f5-4093-8d09-2e83fb646e8f"
+		},
+		{
+			"name": "Dict_for_create_goods",
+			"item": [
+				{
+					"name": "Dict Companies Cabinets",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c3eb1aad-a70b-416d-b343-b0ba0a3e2ec4",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json().cabinets;\r",
+									"    for (var i = 0; i < jsonData.length; i++)\r",
+									"    {var index = jsonData[i];\r",
+									"    if (index.marketplace_id == 1){pm.environment.set(\"wb_companymarketplace_id\", index.id);}\r",
+									"    if (index.marketplace_id == 2){pm.environment.set(\"ozon_companymarketplace_id\", index.id);}\r",
+									"    if (index.marketplace_id == 4){pm.environment.set(\"sber_companymarketplace_id\", index.id);}\r",
+									"   \r",
+									"    }"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "4f377f49-3592-40d1-ac43-7a1cae321863",
+								"exec": [
+									"pm.environment.set(\"wb_companymarketplace_id\", null);\r",
+									"pm.environment.set(\"ozon_companymarketplace_id\", null);\r",
+									"pm.environment.set(\"sber_companymarketplace_id\", null);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "0e7a4107-b839-436e-8cbc-7dbda5953bd0",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{url}}/customer/companies/{{id_company}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Dict Contragents",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2fe7eea1-2646-449f-ada7-9e936524f719",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									" var index = Math.trunc(Math.random() * jsonData.length);\r",
+									" var item = jsonData[index];\r",
+									"pm.environment.set(\"dict_contragents\", item.id);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "77985f0b-bcf9-4540-af54-9b6eca60222e",
+								"exec": [
+									"/*postman.setNextRequest(\"Dict pricechangereasons\");\r",
+									"\r",
+									"if (pm.environment.get(\"normal_run\"))\r",
+									"    postman.setNextRequest(\"Request name 10\");\r",
+									"else\r",
+									"    postman.setNextRequest(\"Request name 13\");\r",
+									"    */"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "1662662a-8f86-4221-8ebb-0964cbf95857",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{url}}/pim/contragents"
+					},
+					"response": []
+				},
+				{
+					"name": "Dict Packagerequirements",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c3eb1aad-a70b-416d-b343-b0ba0a3e2ec4",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									" var index = Math.trunc(Math.random() * jsonData.length);\r",
+									" var item = jsonData[index];\r",
+									"pm.environment.set(\"dict_packagerequirements\", item.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "88ad996f-2580-489f-b9de-4448b0a44f62",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{url}}/pim/packagingrequirements"
+					},
+					"response": []
+				},
+				{
+					"name": "Dict Packagetype",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c3eb1aad-a70b-416d-b343-b0ba0a3e2ec4",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									" var index = Math.trunc(Math.random() * jsonData.length);\r",
+									" var item = jsonData[index];\r",
+									"pm.environment.set(\"dict_packagingtypes\", item.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "d9c1c67e-9a40-47fc-ab9a-caf5d00d462b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{url}}/pim/packagingtypes"
+					},
+					"response": []
+				},
+				{
+					"name": "Dict Brands",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2fe7eea1-2646-449f-ada7-9e936524f719",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									" var index = Math.trunc(Math.random() * jsonData.length);\r",
+									" var item = jsonData[index];\r",
+									"pm.environment.set(\"dict_brands\", item.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "f32d38f3-d59a-48e4-bb25-aeb4598a4a50",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{url}}/pim/brands"
+					},
+					"response": []
+				},
+				{
+					"name": "Dict Categories",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2fe7eea1-2646-449f-ada7-9e936524f719",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									" var index = Math.trunc(Math.random() * jsonData.length);\r",
+									" var item = jsonData[index];\r",
+									"pm.environment.set(\"dict_categories\", item.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "72f9139b-acc0-49ca-ac74-8b1851b6b878",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/pim/categories?search_string=а",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"pim",
+								"categories"
+							],
+							"query": [
+								{
+									"key": "search_string",
+									"value": "а"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Dict Countries",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2fe7eea1-2646-449f-ada7-9e936524f719",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									" var index = Math.trunc(Math.random() * jsonData.length);\r",
+									" var item = jsonData[index];\r",
+									"pm.environment.set(\"dict_countries\", item.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "44f716df-fde1-41af-938a-bcca7cb5d0e9",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{url}}/pim/countries"
+					},
+					"response": []
+				},
+				{
+					"name": "Dict pricechangereasons",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2fe7eea1-2646-449f-ada7-9e936524f719",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									" var index = Math.trunc(Math.random() * jsonData.length);\r",
+									" var item = jsonData[index];\r",
+									"pm.environment.set(\"dict_pricechangereasons\", item.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "5927e8f7-b071-4cad-bda1-211f8c2b3e94",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{url}}/pim/pricechangereasons"
+					},
+					"response": []
+				}
+			],
+			"id": "65fa7cbe-34d4-43dc-b692-a0eec807d03a"
+		},
+		{
+			"name": "Goods",
+			"item": [
+				{
+					"name": "Goods Create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c6fc3aab-b08e-4098-a620-8022de75fa9a",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"goods_id\", jsonData.id);\r",
+									"pm.environment.set(\"goods_version_no\", jsonData.version_no);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "06d27eb8-8bdb-4be7-a861-f29bca0fa4c7",
+								"exec": [
+									"var randomNumber = Math.floor(Math.random() * 200) + 1;\r",
+									"pm.environment.set(\"incoming_price\", randomNumber);\r",
+									"\r",
+									"var randomNumber1 = Math.floor(Math.random() * 50) + 1;\r",
+									"pm.environment.set(\"rrp\", randomNumber1);\r",
+									"\r",
+									"var randomNumber = Math.floor(Math.random() * 1000000000000) + 1;\r",
+									"pm.environment.set(\"goods_suppliers_barcode\", randomNumber);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "ad1aaa04-522d-460c-9c56-c2992ac0043a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"'Тестовый EcomTest'\",\r\n  \"code\": \"Тестовый товар\",\r\n  \"brand_id\": {{dict_brands}},\r\n  \"category_id\": {{dict_categories}},\r\n  \"made_in_country_id\": {{dict_countries}},\r\n  \"description\": \"Товар создан для проверки автоматизации\",\r\n  \"season_id\": 1,\r\n  \"vat_rate\": 0.2,\r\n  \"width\": 100,\r\n  \"height\": 200,\r\n  \"depth\": 300,\r\n  \"weight\": 400,\r\n  \"unit_id\": 1,\r\n\"suppliers\": [\r\n    {\r\n      \"contragent_id\": {{dict_contragents}},\r\n      \"incoming_price\": {{incoming_price}},\r\n      \"rrp\": {{rrp}},\r\n      \"codes\": [\r\n        {\r\n          \"code\": \"Тестовый код\"\r\n        }\r\n      ],\r\n      \"packaging\": [\r\n        {\r\n          \"packagingtype_id\": {{dict_packagingtypes}},\r\n          \"barcode\": \"{{goods_suppliers_barcode}}\",\r\n          \"unit_quantity\": 1,\r\n          \"weight\": 100,\r\n          \"width\": 200,\r\n          \"height\": 300,\r\n          \"depth\": 400\r\n        }\r\n      ]\r\n    }\r\n  ]\r\n}"
+						},
+						"url": "{{url}}/pim/goods"
+					},
+					"response": []
+				},
+				{
+					"name": "Goods Information",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2fe7eea1-2646-449f-ada7-9e936524f719",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"goods_version_no\", jsonData.version_no);\r",
+									"\r",
+									"var jsonData = pm.response.json().suppliers[0].id;\r",
+									"pm.environment.set(\"goods_suppliers_id\", jsonData);\r",
+									"\r",
+									"var jsonData = pm.response.json().suppliers[0].version_no;\r",
+									"pm.environment.set(\"suppliers_version_no\", jsonData);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "7e2528ac-a967-471e-989d-4fb471d230c7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{url}}/pim/goods/{{goods_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Goods Add media",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c6fc3aab-b08e-4098-a620-8022de75fa9a",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "1221d34d-525e-43f0-b568-5a21d31dfe01",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"warning": "This is a duplicate header and will be overridden by the Content-Type header generated by Postman.",
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "Testovyi-tovar-2.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/pim/goods/{{goods_id}}/media/file?media_type=photo",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"pim",
+								"goods",
+								"{{goods_id}}",
+								"media",
+								"file"
+							],
+							"query": [
+								{
+									"key": "media_type",
+									"value": "photo"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "b21d18db-4dc0-4cbd-bbee-17befef280b0",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "df087f62-312b-40e4-b444-f001ce6cc9a4",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e5fd68c4-d9ce-44b4-95a4-7d10b4d14bc9",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "WB",
+			"item": [
+				{
+					"name": "WB Create product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c6fc3aab-b08e-4098-a620-8022de75fa9a",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"wb_product_id\", jsonData.product_id);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "73ac9d7a-5197-40da-83c9-721b11c341d7",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "5ba63183-a37a-4f15-94f0-cc2123f37284",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"goods_id\": {{goods_id}},\r\n  \"companymarketplace_id\": {{wb_companymarketplace_id}},\r\n  \"category_id\": 859,\r\n//  \"category_id\": {{dict_categories}}, \r\n//  \"wbnomenclature_id\": 663821, // Тампоны гигиенические\r\n//  \"new_variation\": true,\r\n  \"use_goods_media\": false\r\n}"
+						},
+						"url": "{{url}}/pim/products/wb/product"
+					},
+					"response": []
+				},
+				{
+					"name": "WB Information product",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "28d4fecc-fd0b-4b70-b1fb-aad15db833a0",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "b82fbca3-1106-45e5-b103-416564c6db03",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json().variations[0].id;\r",
+									"pm.environment.set(\"wb_variation_id\", jsonData);\r",
+									"\r",
+									"var jsonData = pm.response.json().variations[0].version_no;\r",
+									"pm.environment.set(\"wb_variation_version_no\", jsonData);\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"wb_version_no\", jsonData.version_no);\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"wb_nomenclature_id\", jsonData.id);\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"wb_nomenclature_version_no\", jsonData.version_no);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "7b3daa9f-e7b5-4a6c-990f-7326776adf77",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{url}}/pim/products/wb/product/{{wb_product_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "WB Edit product",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "28d4fecc-fd0b-4b70-b1fb-aad15db833a0",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "b82fbca3-1106-45e5-b103-416564c6db03",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"wb_version_no\", jsonData.version_no);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "535a4628-e613-402a-a303-3a956459e873",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": {{wb_nomenclature_id}},\r\n  \"version_no\": {{wb_version_no}},\r\n  \"name\": \"Тестовый продукт WB\",\r\n  \"sizeinfo_global\": true,\r\n  \"packagingrequirement_id\": {{dict_packagerequirements}},\r\n  \"variations\": [\r\n        {\r\n            \"id\": {{wb_variation_id}},\r\n            \"version_no\": {{wb_variation_version_no}}}           \r\n    ],\r\n  \"new_box\": true}\r\n"
+						},
+						"url": "{{url}}/pim/products/wb/product/{{wb_product_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "WB Edit price product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c6fc3aab-b08e-4098-a620-8022de75fa9a",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"wb_nomenclature_version_no\", jsonData.version_no);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e54b49c6-c499-47fa-a674-449f807dffc5",
+								"exec": [
+									"pm.environment.set(\"wb_price\", _.random(300, 500))\r",
+									"pm.environment.set(\"wb_discount\", _.random(1, 100))"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "11ca74e8-c6ba-471e-a378-6156b05d29aa",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  //\"change_date\": \"{{change_date}}\",\r\n  \"price\": 600,\r\n  \"pricechangereason_id\": {{dict_pricechangereasons}},\r\n  \"comments\": \"Тестирование\",\r\n//  \"revert_date\": \"{{revert_date}}\",\r\n    \"discount\": 0\r\n}"
+						},
+						"url": {
+							"raw": "{{url}}/pim/products/wb/product/{{wb_product_id}}/price",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"pim",
+								"products",
+								"wb",
+								"product",
+								"{{wb_product_id}}",
+								"price"
+							],
+							"query": [
+								{
+									"key": "media_type",
+									"value": "photo",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "WB Add photo product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c6fc3aab-b08e-4098-a620-8022de75fa9a",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "0539e2a0-aa47-427c-ae20-012d57707bbe",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"warning": "This is a duplicate header and will be overridden by the Content-Type header generated by Postman.",
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "WB.jpeg"
+								}
+							]
+						},
+						"url": "{{url}}/pim/products/wb/product/{{wb_product_id}}/photos/file"
+					},
+					"response": []
+				},
+				{
+					"name": "WB Add barcode",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c6fc3aab-b08e-4098-a620-8022de75fa9a",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e54b49c6-c499-47fa-a674-449f807dffc5",
+								"exec": [
+									"let randomNumber = Math.floor(Math.random() * 1000000000000) + 1;\r",
+									"pm.environment.set(\"wb_barcode\", randomNumber);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "4a3be218-7b24-4cd9-ba32-bfedd8e3cdc6",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"barcode\": \"{{wb_barcode}}\"\r\n}"
+						},
+						"url": "{{url}}/pim/products/wb/product/{{wb_product_id}}/variations/{{wb_variation_id}}/barcodes"
+					},
+					"response": []
+				},
+				{
+					"name": "WB Information product",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "28d4fecc-fd0b-4b70-b1fb-aad15db833a0",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "b82fbca3-1106-45e5-b103-416564c6db03",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json().variations[0].id;\r",
+									"pm.environment.set(\"wb_variation_id\", jsonData);\r",
+									"\r",
+									"var jsonData = pm.response.json().variations[0].version_no;\r",
+									"pm.environment.set(\"wb_variation_version_no\", jsonData);\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"wb_version_no\", jsonData.version_no);\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"wb_nomenclature_id\", jsonData.id);\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"wb_nomenclature_version_no\", jsonData.version_no);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "4ddb79c9-a788-45f1-9b05-c6b3c8eef0ac",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{url}}/pim/products/wb/product/{{wb_product_id}}"
+					},
+					"response": []
+				}
+			],
+			"id": "2952b103-be81-48bb-8406-976fad110ece",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "3577ed2d-6754-400d-8ff8-c2f0403e7cbb",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "85a541a1-4cb2-4ad4-b8c8-27768f1e3f05",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "OZON",
+			"item": [
+				{
+					"name": "OZON Categories product",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "145b5d96-1368-4c9d-abd2-dd61882ffcd3",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "d084a66d-fa06-4a97-a529-93b0cc5554c0",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									" var index = Math.trunc(Math.random() * jsonData.length);\r",
+									" var item = jsonData[index];\r",
+									"pm.environment.set(\"ozon_categories_id\", item.description_category_id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "65643217-db72-44a3-82c4-5b1de954edc4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/ozonproxy/categories?search_string=&companymarketplace_id={{ozon_companymarketplace_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ozonproxy",
+								"categories"
+							],
+							"query": [
+								{
+									"key": "search_string",
+									"value": ""
+								},
+								{
+									"key": "companymarketplace_id",
+									"value": "{{ozon_companymarketplace_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "OZON Create product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c6fc3aab-b08e-4098-a620-8022de75fa9a",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"ozon_product_id\", jsonData.product_id);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5e451021-b474-4317-a1e4-669720c245e4",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "4bdbbc0a-2ed7-4693-88f6-2a8f92fe0acd",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"goods_id\": {{goods_id}},\r\n  \"companymarketplace_id\": {{ozon_companymarketplace_id}}, // Кабинет поставщика\r\n  \"use_goods_media\": false,\r\n  \"card\": {\r\n    \"category_id\": 93950\r\n//    \"category_id\": {{ozon_categories_id}} // Ozonproduct\r\n  }\r\n}"
+						},
+						"url": "{{url}}/pim/products/ozon/product"
+					},
+					"response": []
+				},
+				{
+					"name": "OZON Information product",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "145b5d96-1368-4c9d-abd2-dd61882ffcd3",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "d084a66d-fa06-4a97-a529-93b0cc5554c0",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"ozon_version_no\", jsonData.version_no);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "594b0ce1-6f0c-4c12-8052-b2a3bc3feb0f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{url}}/pim/products/ozon/product/{{ozon_product_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "OZON Edit product",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "28d4fecc-fd0b-4b70-b1fb-aad15db833a0",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "b82fbca3-1106-45e5-b103-416564c6db03",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"ozon_version_no\", jsonData.version_no);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "2fe89b4e-7177-41c9-9f4f-d72f95ac4f2e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": {{ozon_product_id}},\r\n  \"version_no\": {{ozon_version_no}},\r\n//  \"offer_id\": \"string\",\r\n  \"name\": \"Тестовый продукт OZON\",\r\n//  \"brand_id\": 0,\r\n  \"description\": \"Создан тестовый продукт на OZON из тестового товара\",\r\n  \"packagingrequirement_id\": {{dict_packagerequirements}},\r\n  \"new_box\": true,\r\n  \"vat_rate\": 0.1\r\n}"
+						},
+						"url": "{{url}}/pim/products/ozon/product/{{ozon_product_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "OZON Edit price product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c6fc3aab-b08e-4098-a620-8022de75fa9a",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"ozon_version_no\", jsonData.version_no);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e54b49c6-c499-47fa-a674-449f807dffc5",
+								"exec": [
+									"var current_timestamp = new Date();\r",
+									"current_timestamp.setMinutes(current_timestamp.getMinutes() + 1);\r",
+									"current_timestamp.setHours(current_timestamp.getHours() + 3);\r",
+									"pm.environment.set(\"change_date\", current_timestamp.toISOString());\r",
+									"\r",
+									"current_timestamp.setHours(current_timestamp.getHours() + 1);\r",
+									"pm.environment.set(\"revert_date\", current_timestamp.toISOString())\r",
+									"\r",
+									"pm.environment.set(\"ozon_price\", _.random(100, 300))\r",
+									"pm.environment.set(\"ozon_oldprice\", _.random(300, 500))"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "3139f2c2-ab9b-42b6-8446-cddc1b3fffca",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n//  \"change_date\": \"{{change_date}}\",\r\n  \"price\": {{ozon_price}},\r\n  \"pricechangereason_id\": {{dict_pricechangereasons}},\r\n  \"comments\": \"Проверка\",\r\n//  \"revert_date\": \"{{revert_date}}\",\r\n  \"old_price\": {{ozon_oldprice}}\r\n}\r\n"
+						},
+						"url": {
+							"raw": "{{url}}/pim/products/ozon/product/{{ozon_product_id}}/price",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"pim",
+								"products",
+								"ozon",
+								"product",
+								"{{ozon_product_id}}",
+								"price"
+							],
+							"query": [
+								{
+									"key": "media_type",
+									"value": "photo",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "OZON Add photo product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c6fc3aab-b08e-4098-a620-8022de75fa9a",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"ozon_media_version_no\", jsonData.version_no);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "d759fc06-0fae-4491-8ef8-9057e6beb2fd",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"warning": "This is a duplicate header and will be overridden by the Content-Type header generated by Postman.",
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "ozon.jpg"
+								}
+							]
+						},
+						"url": "{{url}}/pim/products/ozon/product/{{ozon_product_id}}/photos/file"
+					},
+					"response": []
+				},
+				{
+					"name": "OZON Barcode product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c6fc3aab-b08e-4098-a620-8022de75fa9a",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e54b49c6-c499-47fa-a674-449f807dffc5",
+								"exec": [
+									"let randomNumber = Math.floor(Math.random() * 1000000000000) + 1;\r",
+									"pm.environment.set(\"ozon_barcode\", randomNumber);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "c20f44fa-82cc-4a66-a615-dbcfbb3f6edc",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"barcode\": \"{{ozon_barcode}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{url}}/pim/products/ozon/product/{{ozon_product_id}}/barcodes",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"pim",
+								"products",
+								"ozon",
+								"product",
+								"{{ozon_product_id}}",
+								"barcodes"
+							],
+							"query": [
+								{
+									"key": "media_type",
+									"value": "photo",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "d55fbd45-eb5f-41c8-bb7c-b4208c2827f1"
+		},
+		{
+			"name": "SberMarket",
+			"item": [
+				{
+					"name": "Sber Create product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c6fc3aab-b08e-4098-a620-8022de75fa9a",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"sber_product_id\", jsonData.product_id);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "bb6bc9a8-738e-498e-b9fe-200615f6d10c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"goods_id\": {{goods_id}},\r\n  \"companymarketplace_id\": {{sber_companymarketplace_id}},\r\n  \"name\": \"Тестовый продукт SberMarket\",\r\n  \"category\": \"Simple category\",\r\n  \"packagingrequirement_id\": {{dict_packagerequirements}},\r\n  \"use_goods_media\": false\r\n}"
+						},
+						"url": "{{url}}/pim/products/simple/product"
+					},
+					"response": []
+				},
+				{
+					"name": "Sber Information product",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "28d4fecc-fd0b-4b70-b1fb-aad15db833a0",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "b82fbca3-1106-45e5-b103-416564c6db03",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"sber_version_no\", jsonData.version_no);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "61ff974a-cb91-470d-9219-90f32416b8f6",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{url}}/pim/products/simple/product/{{sber_product_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Sber Edit product",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "28d4fecc-fd0b-4b70-b1fb-aad15db833a0",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "b82fbca3-1106-45e5-b103-416564c6db03",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"sber_version_no\", jsonData.version_no);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "fe8917e6-cd18-40e1-a011-1f0657046d72",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": {{sber_product_id}},\r\n  \"version_no\": {{sber_version_no}},\r\n  \"name\": \"Тестовый продукт SberMarket\"}"
+						},
+						"url": "{{url}}/pim/products/simple/product/{{sber_product_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Sber Add photo product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c6fc3aab-b08e-4098-a620-8022de75fa9a",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"sber_version_no\", jsonData.version_no);\r",
+									"pm.environment.set(\"sber_index_number\", jsonData.index_number)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "71109aea-bc3e-400a-b9aa-cee7f35771ac",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"warning": "This is a duplicate header and will be overridden by the Content-Type header generated by Postman.",
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "sbermarket.png"
+								}
+							]
+						},
+						"url": "{{url}}/pim/products/simple/product/{{sber_product_id}}/photos/file"
+					},
+					"response": []
+				},
+				{
+					"name": "Sber Edit price product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c6fc3aab-b08e-4098-a620-8022de75fa9a",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"sber_version_no\", jsonData.version_no);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e54b49c6-c499-47fa-a674-449f807dffc5",
+								"exec": [
+									"pm.environment.set(\"sber_price\", _.random(300, 500))\r",
+									"pm.environment.set(\"sber_discount\", _.random(1, 100))"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "70223f78-8157-4ee4-a8b7-6a12bc996614",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  //\"change_date\": \"{{change_date}}\",\r\n  \"price\": {{sber_price}},\r\n  \"pricechangereason_id\": {{dict_pricechangereasons}},\r\n  \"comments\": \"string\",\r\n//  \"revert_date\": \"{{revert_date}}\",\r\n    \"discount\": {{sber_discount}}\r\n}"
+						},
+						"url": {
+							"raw": "{{url}}/pim/products/simple/product/{{sber_product_id}}/price",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"pim",
+								"products",
+								"simple",
+								"product",
+								"{{sber_product_id}}",
+								"price"
+							],
+							"query": [
+								{
+									"key": "media_type",
+									"value": "photo",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sber Add barcode",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c6fc3aab-b08e-4098-a620-8022de75fa9a",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e54b49c6-c499-47fa-a674-449f807dffc5",
+								"exec": [
+									"let randomNumber = Math.floor(Math.random() * 1000000000000) + 1;\r",
+									"pm.environment.set(\"sber_barcode\", randomNumber);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "6980510e-8bf0-47fe-99f9-5bdd622695cf",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"barcode\": \"{{sber_barcode}}\"\r\n}"
+						},
+						"url": "{{url}}/pim/products/simple/product/{{sber_product_id}}/barcodes"
+					},
+					"response": []
+				}
+			],
+			"id": "47e9fce7-770d-478a-9105-1f8061c80cdf"
+		},
+		{
+			"name": "Delete",
+			"item": [
+				{
+					"name": "WB Delete product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c6fc3aab-b08e-4098-a620-8022de75fa9a",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "61469948-a411-4382-940c-2db2a07656b7",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "7e78667a-bdd2-4776-ada6-a10f8c301814",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": {{wb_nomenclature_id}},\r\n  \"version_no\": {{wb_nomenclature_version_no}},\r\n  \"comments\": \"Проверка\"\r\n}"
+						},
+						"url": "{{url}}/pim/products/wb/product/{{wb_product_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "OZON Delete product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c6fc3aab-b08e-4098-a620-8022de75fa9a",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "779db3b7-66c5-4b92-975b-81fabe50947e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": {{ozon_product_id}},\r\n  \"version_no\": {{ozon_version_no}},\r\n  \"comments\": \"Проверка\"\r\n}"
+						},
+						"url": "{{url}}/pim/products/ozon/product/{{ozon_product_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "SberMarket Delete product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c6fc3aab-b08e-4098-a620-8022de75fa9a",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"/*\r",
+									"pass=true;\r",
+									"fail=false;\r",
+									"try{\r",
+									"    if(responseCode.code === 200)\r",
+									"    {\r",
+									"        var jsonData = pm.response.json();\r",
+									"        pm.test[\"Request with 200 status ok : \"+ responseCode.code] = responseCode.code === 200 === fail;\r",
+									"\r",
+									"    }else if(responseCode.code !== 200){\r",
+									"        console.error(\"Web-service failed\");\r",
+									"        pm.test[\"Request with 400 Bad Request: \"+ responseCode.code] = responseCode.code === 404;\r",
+									"    }\r",
+									"}catch(err){\r",
+									"    console.log(\"Something went wrong please contact to your Admin...!\"+err);\r",
+									"}\r",
+									"*/"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "6ffe2630-5eb1-4d1f-9915-3292567c3ef5",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": {{sber_product_id}},\r\n  \"version_no\": {{sber_version_no}},\r\n  \"comments\": \"Проверка\"\r\n}"
+						},
+						"url": "{{url}}/pim/products/simple/product/{{sber_product_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "SberMarket Remote product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c6fc3aab-b08e-4098-a620-8022de75fa9a",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400, 404]);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "6823ae58-0fcf-438d-95ac-4e2553381785",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": {{sber_product_id}},\r\n  \"version_no\": {{sber_version_no}},\r\n  \"comments\": \"Проверка\"\r\n}"
+						},
+						"url": "{{url}}/pim/products/simple/product/{{sber_product_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Goods Delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c6fc3aab-b08e-4098-a620-8022de75fa9a",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "5274f554-e17c-4fb6-a43b-133217662d04",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": {{goods_id}},\r\n  \"version_no\": {{goods_version_no}},\r\n  \"comments\": \"Проверка\"\r\n}"
+						},
+						"url": "{{url}}/pim/goods/{{goods_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Goods Remote",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c6fc3aab-b08e-4098-a620-8022de75fa9a",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400, 404]);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "614238c3-66fb-4c79-a33f-06909b1f367d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": {{goods_id}},\r\n  \"version_no\": {{goods_version_no}},\r\n  \"comments\": \"Проверка\"\r\n}"
+						},
+						"url": "{{url}}/pim/goods/{{goods_id}}"
+					},
+					"response": []
+				}
+			],
+			"id": "63fd0349-f19f-4922-8f14-bf79d8d41a35"
+		}
+	]
+}
