@@ -1092,11 +1092,7 @@
 								{
 									"key": "file",
 									"type": "file",
-									"fileNotInWorkingDirectoryWarning": "This file isn't in your working directory. Teammates you share this request with won't be able to use this file. To make collaboration easier you can setup your working directory in Settings.",
-									"filesNotInWorkingDirectory": [
-										"/C:/Users/Leha7777/Postman/WB.jpeg"
-									],
-									"src": "WB.jpeg"
+									"src": "postman-cloud:///1eed6eb3-3975-4b40-bf01-30e8de9e2162"
 								}
 							]
 						},
@@ -1983,7 +1979,7 @@
 								{
 									"key": "file",
 									"type": "file",
-									"src": "sbermarket.png"
+									"src": "postman-cloud:///1eed6eb1-0978-4c50-9e82-02225e059fa5"
 								}
 							]
 						},
