@@ -1,0 +1,837 @@
+{
+	"info": {
+		"_postman_id": "d4e21398-7150-4237-a374-71a8a4129149",
+		"name": "Bulk_wb",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Token",
+			"item": [
+				{
+					"name": "Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c6fc3aab-b08e-4098-a620-8022de75fa9a",
+								"exec": [
+									"/*var jsonData = pm.response.json();\r",
+									"pm.collectionVariables.set(\"varBearerToken\", jsonData.access_token);\r",
+									"*/\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"varBearerToken\", jsonData.access_token);\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "afc29d78-1bd4-4b83-9b40-e420482462a2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"login\": \"{{login}}\",\r\n  \"password\": \"{{password}}\",\r\n  \"fingerprint\": \"string\",\r\n  \"remember_me\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/auth/login"
+					},
+					"response": []
+				}
+			],
+			"id": "06f0022e-48e0-4fee-9d3b-81186cc44169"
+		},
+		{
+			"name": "Template create",
+			"item": [
+				{
+					"name": "Get template with category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4ecdb74f-da4f-4871-970a-21478b72b5be",
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "ed10b36a-3a84-4edd-b48f-a62681d1ecbc",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/pim/ops/products/wb/product?template_format=excel&template_type=with_category&companymarketplace_id={{companymarketplace_id_bulk_wb}}&category={{wb_category_id_bulk_wb}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"pim",
+								"ops",
+								"products",
+								"wb",
+								"product"
+							],
+							"query": [
+								{
+									"key": "template_format",
+									"value": "excel"
+								},
+								{
+									"key": "template_type",
+									"value": "with_category"
+								},
+								{
+									"key": "brand",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "companymarketplace_id",
+									"value": "{{companymarketplace_id_bulk_wb}}"
+								},
+								{
+									"key": "category",
+									"value": "{{wb_category_id_bulk_wb}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get template w/o category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4ecdb74f-da4f-4871-970a-21478b72b5be",
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "842b8440-d288-471b-8b8c-c0185d8d30cb",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/pim/ops/products/wb/product?template_format=excel&template_type=without_category&companymarketplace_id={{companymarketplace_id_bulk_wb}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"pim",
+								"ops",
+								"products",
+								"wb",
+								"product"
+							],
+							"query": [
+								{
+									"key": "category",
+									"value": "{{wb_category_id_bulk_wb}}",
+									"disabled": true
+								},
+								{
+									"key": "template_format",
+									"value": "excel"
+								},
+								{
+									"key": "template_type",
+									"value": "without_category"
+								},
+								{
+									"key": "brand",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "companymarketplace_id",
+									"value": "{{companymarketplace_id_bulk_wb}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Import template create with cat",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4ecdb74f-da4f-4871-970a-21478b72b5be",
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Successful_import\", function() {\r",
+									"  pm.expect(pm.response.json().response_type).to.eql(\"successful_import\");\r",
+									"});\r",
+									"/*\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"successful_import\");\r",
+									"});\r",
+									"*/"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "96cca08a-26b7-476f-bde2-02adc441edb2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "Создание продуктов Хозяйственные товары_Средства для мытья посуды.xlsx"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/pim/ops/products/wb/product?use_goods_media=false&template_type=with_category&companymarketplace_id={{companymarketplace_id_bulk_wb}}&category={{wb_category_id_bulk_wb}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"pim",
+								"ops",
+								"products",
+								"wb",
+								"product"
+							],
+							"query": [
+								{
+									"key": "use_goods_media",
+									"value": "false"
+								},
+								{
+									"key": "brand",
+									"value": "Обычный бренд",
+									"disabled": true
+								},
+								{
+									"key": "template_type",
+									"value": "with_category"
+								},
+								{
+									"key": "companymarketplace_id",
+									"value": "{{companymarketplace_id_bulk_wb}}"
+								},
+								{
+									"key": "category",
+									"value": "{{wb_category_id_bulk_wb}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get product WB",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4ecdb74f-da4f-4871-970a-21478b72b5be",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"wb_product_id_create_bulk_wb\", jsonData[0].id);\r",
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "ce09235e-1b40-4f88-b2e9-d345f5174272",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/pim/products/wb/product/search?code=Чистый артИкул 808. Создание.",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"pim",
+								"products",
+								"wb",
+								"product",
+								"search"
+							],
+							"query": [
+								{
+									"key": "code",
+									"value": "Чистый артИкул 808. Создание."
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "WB Information product",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "28d4fecc-fd0b-4b70-b1fb-aad15db833a0",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "b82fbca3-1106-45e5-b103-416564c6db03",
+								"exec": [
+									"var jsonData = pm.response.json().variations[0].id;\r",
+									"pm.environment.set(\"wb_variation_id_bulk_wb\", jsonData);\r",
+									"\r",
+									"var jsonData = pm.response.json().variations[0].version_no;\r",
+									"pm.environment.set(\"wb_variation_version_no_bulk_wb\", jsonData);\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"wb_version_no_bulk_wb\", jsonData.version_no);\r",
+									"pm.environment.set(\"wb_nomenclature_id_bulk_wb\", jsonData.id);\r",
+									"pm.environment.set(\"wb_nomenclature_version_no_bulk_wb\", jsonData.version_no);\r",
+									"\r",
+									"var jsonData = pm.response.json().photos[0].file_name;\r",
+									"pm.environment.set(\"media_product_create_bulk_wb\", jsonData);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "dda0ccce-daed-4f97-8c8d-79372f810a6d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{url}}/pim/products/wb/product/{{wb_product_id_create_bulk_wb}}"
+					},
+					"response": []
+				}
+			],
+			"id": "ac903483-3546-43f8-b474-4129bff9a1fe"
+		},
+		{
+			"name": "Template change",
+			"item": [
+				{
+					"name": "Get template change with category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4ecdb74f-da4f-4871-970a-21478b72b5be",
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "48b509c5-c654-482a-9cbf-37dee89a99ee",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/pim/ops/products/wb/change/product?brand=Обычный бренд&category={{wb_category_id_bulk_wb}}&companymarketplace_id={{companymarketplace_id_bulk_wb}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"pim",
+								"ops",
+								"products",
+								"wb",
+								"change",
+								"product"
+							],
+							"query": [
+								{
+									"key": "template_format",
+									"value": "excel",
+									"disabled": true
+								},
+								{
+									"key": "brand",
+									"value": "Обычный бренд"
+								},
+								{
+									"key": "date_from",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "date_to",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "category",
+									"value": "{{wb_category_id_bulk_wb}}"
+								},
+								{
+									"key": "companymarketplace_id",
+									"value": "{{companymarketplace_id_bulk_wb}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Import template change",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4ecdb74f-da4f-4871-970a-21478b72b5be",
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Successful_import\", function() {\r",
+									"  pm.expect(pm.response.json().response_type).to.eql(\"successful_import\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "7226ea1a-bfa7-415e-8a2d-cc0b79096533",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "Изменение продуктов Хозяйственные товары_Средства для мытья посуды  Обычный бренд.xlsx"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/pim/ops/products/wb/change/product?companymarketplace_id={{companymarketplace_id_bulk_wb}}&category={{wb_category_id_bulk_wb}}&brand=Обычный бренд",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"pim",
+								"ops",
+								"products",
+								"wb",
+								"change",
+								"product"
+							],
+							"query": [
+								{
+									"key": "companymarketplace_id",
+									"value": "{{companymarketplace_id_bulk_wb}}"
+								},
+								{
+									"key": "category",
+									"value": "{{wb_category_id_bulk_wb}}"
+								},
+								{
+									"key": "brand",
+									"value": "Обычный бренд"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "WB Information product",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "28d4fecc-fd0b-4b70-b1fb-aad15db833a0",
+								"exec": [
+									"//if (pm.collectionVariables.has(\"wb_companymarketplace_id\") == 0 ) {postman.setNextRequest(\"OZON Create product\")};"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "b82fbca3-1106-45e5-b103-416564c6db03",
+								"exec": [
+									"/*var jsonData = pm.response.json().variations[0].id;\r",
+									"pm.environment.set(\"wb_variation_id\", jsonData);\r",
+									"\r",
+									"var jsonData = pm.response.json().variations[0].version_no;\r",
+									"pm.environment.set(\"wb_variation_version_no\", jsonData);\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"wb_version_no\", jsonData.version_no);\r",
+									"pm.environment.set(\"wb_nomenclature_id\", jsonData.id);\r",
+									"pm.environment.set(\"wb_nomenclature_version_no\", jsonData.version_no);\r",
+									"*/\r",
+									"var jsonData = pm.response.json().photos[0].file_name;\r",
+									"pm.environment.set(\"media_product_change_bulk_wb\", jsonData);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "55eed0f6-1dd4-4cfd-98dd-983b20b8f8ea",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{url}}/pim/products/wb/product/{{wb_product_id_change_bulk_wb}}"
+					},
+					"response": []
+				}
+			],
+			"id": "9c2ab441-8274-4dbf-84ad-5a9db48497ce"
+		},
+		{
+			"name": "Delete",
+			"item": [
+				{
+					"name": "WB Delete product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c6fc3aab-b08e-4098-a620-8022de75fa9a",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "61469948-a411-4382-940c-2db2a07656b7",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "b2a10f00-b578-4aac-8e0f-211adaa9278f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{varBearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": {{wb_nomenclature_id_bulk_wb}},\r\n  \"version_no\": {{wb_nomenclature_version_no_bulk_wb}},\r\n  \"comments\": \"Проверка\"\r\n}"
+						},
+						"url": "{{url}}/pim/products/wb/product/{{wb_product_id_create_bulk_wb}}"
+					},
+					"response": []
+				}
+			],
+			"id": "13ebb235-bdd0-45e6-8c50-ad58a24c0a10"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "784b17a7-046a-43ef-a252-c0a9dd33ca30",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "ed2d93ea-9066-49ce-8349-ddbb21db16a9",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
